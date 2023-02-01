@@ -77,6 +77,38 @@ Steps:
 
 With these changes the frontend should handle new color spaces without changes.
 
+## API
+
+GET /api/v1/color?limit=5
+
+Request Params:
+
+- limit: number default 5
+
+```json
+[
+  {
+    "type": "rgb",
+    "colorString": " rgb(255, 255, 255);",
+    "hex": "#FFFFFF",
+    "tone": "light",
+    "red": 255,
+    "green": 255,
+    "blue": 255
+  },
+  {
+    "type": "hsl",
+    "colorString": " hsl(360, 100, 100);",
+    "hex": "#FFFFFF",
+    "tone": "light",
+    "hue": 360,
+    "saturation": 100,
+    "lightness": 100
+  }
+  // Three more colors in random combinations of RGB and HSL
+]
+```
+
 ## Built With
 
 - Typescript
