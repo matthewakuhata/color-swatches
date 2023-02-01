@@ -84,10 +84,10 @@ export class ColorGenerator {
          saturation /= 100;
          lightness /= 100;
 
-         const a = saturation * Math.min(lightness, 1 - lightness);
+         const chroma = saturation * Math.min(lightness, 1 - lightness);
          const hueCalculation = (value: number) => (value + hue / 30) % 12;
          const valueCalculation = (value: number) =>
-            lightness - a * Math.max(-1, Math.min(hueCalculation(value) - 3, Math.min(9 - hueCalculation(value), 1)));
+            lightness - chroma * Math.max(-1, Math.min(hueCalculation(value) - 3, Math.min(9 - hueCalculation(value), 1)));
 
          red = Math.round(255 * valueCalculation(0));
          green = Math.round(255 * valueCalculation(8));
