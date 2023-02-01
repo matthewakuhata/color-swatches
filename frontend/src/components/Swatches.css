@@ -1,0 +1,6 @@
+.swatches-container {
+   --num-of-colors: 5;
+   min-height: calc(100vh - 108.5px);
+   display: grid;
+   grid-template-columns: repeat(var(--num-of-colors), 1fr) ;
+}
