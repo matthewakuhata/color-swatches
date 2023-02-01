@@ -59,13 +59,20 @@ Supported Color Spaces:
 Steps:
 
 1. Update color types.
-   Adding support for color space in ./backend/src/types/index.ts
+
+   Adding support for color space in ./backend/src/types/index.ts.
    At a minimum the enum ColorType must be updated with a new color space to ensure the generator works correctly.
+
 2. Create new color space generator function.
+
    Similar to generateRGB & generateHSL we can create a color space using getRandomInteger function
+
 3. Update convertToRGB to include conversion for new color space.
+
    convertToRGB is used to get the both the tone and hex for a color.
+
 4. Update the switch statement in the generate function for ColorGenerator.
+
    Allows new color space to be generated randomly.
 
 With these changes the frontend should handle new color spaces without changes.
