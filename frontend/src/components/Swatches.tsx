@@ -1,13 +1,10 @@
-import React, { CSSProperties, useCallback, useEffect } from "react";
+import React, { CSSProperties, useCallback } from "react";
 import "./Swatches.css";
 import Swatch from "./Swatch";
 import { fetchSwatches, useSwatches } from "../contexts/SwatchesContext";
+import useEventListener from "../hooks/useEventListener";
 
-interface SwatchesProps {
-  count?: number;
-}
-
-const Swatches: React.FC<SwatchesProps> = ({ count = 5 }) => {
+const Swatches: React.FC = () => {
   const { state, dispatch } = useSwatches();
 
   const handleOnClickSpace = useCallback(
@@ -18,13 +15,7 @@ const Swatches: React.FC<SwatchesProps> = ({ count = 5 }) => {
     },
     [dispatch, state]
   );
-
-  useEffect(() => {
-    document.addEventListener("keypress", handleOnClickSpace);
-    return () => {
-      document.removeEventListener("keypress", handleOnClickSpace);
-    };
-  }, [handleOnClickSpace]);
+  useEventListener("keypress", handleOnClickSpace);
 
   return (
     <div
