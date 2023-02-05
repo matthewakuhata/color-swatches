@@ -63,15 +63,11 @@ Steps:
    Adding support for color space in ./backend/src/types/index.ts.
    At a minimum the enum ColorType must be updated with a new color space to ensure the generator works correctly.
 
-2. Create new color space generator function.
+2. Create new color space class.
 
-   Similar to generateRGB & generateHSL we can create a color space using getRandomInteger function
+   Similar to RGBColor & HSLColor we can create a color space using getRandomInteger function
 
-3. Update convertToRGB to include conversion for new color space.
-
-   convertToRGB is used to get the both the tone and hex for a color.
-
-4. Update the switch statement in the generate function for ColorGenerator.
+3. Update the switch statement in the api to include new color space.
 
    Allows new color space to be generated randomly.
 
@@ -120,7 +116,8 @@ Request Params:
 
 ## TODOs
 
-- [] Add locking to colors.
+- [x] Add locking to colors.
 - [] Allow adding more colors.
+- [] Unit test frontend components
 
 <p align="right">(<a href="#top">back to top</a>)</p>
