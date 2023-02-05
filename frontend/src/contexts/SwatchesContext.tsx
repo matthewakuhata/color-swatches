@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { Colors } from "../types";
 import axios from "axios";
 import {
@@ -40,6 +40,11 @@ const SwatchProvider = ({ children, defaultValues }: SwatchProviderProps) => {
     lockedSwatches: defaultValues?.lockedSwatches ?? 0,
     swatches: defaultValues?.swatches ?? {},
   });
+
+  useEffect(() => {
+    fetchSwatches(dispatch, state.total);
+    // eslint-disable-next-line
+  }, []);
 
   const value = { state, dispatch };
   return (
