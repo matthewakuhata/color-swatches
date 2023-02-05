@@ -39,8 +39,7 @@ const Swatches: React.FC<SwatchesProps> = ({ count = 5 }) => {
               <Swatch
                 key={color.colorString + index}
                 color={color.hex}
-                colorSpace={color.type}
-                colorSpaceString={color.colorString}
+                colorSpace={color.colorString}
                 isLight={color.tone === "light"}
                 locked={color.locked}
               />

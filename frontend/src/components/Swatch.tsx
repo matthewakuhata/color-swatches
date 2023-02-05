@@ -5,7 +5,6 @@ import { useSwatches } from "../contexts/SwatchesContext";
 interface SwatchProps {
   color: string;
   colorSpace: string;
-  colorSpaceString: string;
   isLight: boolean;
   locked: boolean;
 }
@@ -13,7 +12,6 @@ interface SwatchProps {
 const Swatch: React.FC<SwatchProps> = ({
   color,
   colorSpace,
-  colorSpaceString,
   isLight,
   locked,
 }) => {
@@ -39,7 +37,7 @@ const Swatch: React.FC<SwatchProps> = ({
       <button className={"swatch__hex"} onClick={handleCopyToClipboard}>
         {color.toUpperCase()}
       </button>
-      <span>{colorSpaceString}</span>
+      <span>{colorSpace}</span>
     </div>
   );
 };
