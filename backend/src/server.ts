@@ -1,11 +1,10 @@
 import http from "http";
 import express, { Express } from "express";
-import mongoose from "mongoose";
 import morgan from "morgan";
 import path from "path";
 import * as dotenv from "dotenv";
 
-import api from './routes/api'
+import api from "./routes/api";
 
 dotenv.config();
 const server: Express = express();
@@ -15,16 +14,16 @@ server.use(express.urlencoded({ extended: false }));
 server.use(express.json());
 
 server.use((req, res, next) => {
-   res.header("Access-Control-Allow-Origin", "*");
-   res.header(
-      "Access-Control-Allow-Headers",
-      "origin, X-Requested-With,Content-Type,Accept, Authorization"
-   );
-   if (req.method === "OPTIONS") {
-      res.header("Access-Control-Allow-Methods", "GET PATCH DELETE POST");
-      return res.status(200).json({});
-   }
-   next();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "origin, X-Requested-With,Content-Type,Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "GET PATCH DELETE POST");
+    return res.status(200).json({});
+  }
+  next();
 });
 
 /**
@@ -43,5 +42,5 @@ const httpServer = http.createServer(server);
 const PORT: any = process.env.PORT || 3001;
 
 httpServer.listen(PORT, () =>
-   console.log(`The server is running on port ${PORT}`)
+  console.log(`The server is running on port ${PORT}`)
 );
