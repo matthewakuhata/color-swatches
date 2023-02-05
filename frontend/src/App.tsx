@@ -1,14 +1,15 @@
-import React from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Swatches from "./components/Swatches";
-import Home from "./pages/Home";
+import { SwatchProvider } from "./contexts/SwatchesContext";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Swatches />
+      <SwatchProvider defaultValues={{ total: 5 }}>
+        <Swatches />
+      </SwatchProvider>
     </div>
   );
 }
