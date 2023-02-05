@@ -1,43 +1,52 @@
-import React, { CSSProperties, useEffect } from "react";
+import React, { CSSProperties, useCallback, useEffect } from "react";
 import "./Swatches.css";
-import useSwatches from "../hooks/useSwatches";
 import Swatch from "./Swatch";
+import { fetchSwatches, useSwatches } from "../contexts/SwatchesContext";
 
 interface SwatchesProps {
   count?: number;
 }
 
 const Swatches: React.FC<SwatchesProps> = ({ count = 5 }) => {
-  const { swatches, limit, fetchSwatches } = useSwatches(count);
+  const { state, dispatch } = useSwatches();
+
+  const handleOnClickSpace = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key !== " ") return;
+
+      fetchSwatches(dispatch, state.total - state.lockedSwatches);
+    },
+    [dispatch, state]
+  );
 
   useEffect(() => {
-    const handleOnClickSpace = (event: KeyboardEvent) => {
-      if (event.key !== " ") {
-        return;
-      }
-      fetchSwatches();
-    };
-
     document.addEventListener("keypress", handleOnClickSpace);
     return () => {
       document.removeEventListener("keypress", handleOnClickSpace);
     };
-  }, [fetchSwatches]);
+  }, [handleOnClickSpace]);
 
   return (
     <div
       className="swatches-container"
-      style={{ "--num-of-colors": limit } as CSSProperties}
+      style={{ "--num-of-colors": state.total } as CSSProperties}
     >
-      {swatches.map((color, index) => (
-        <Swatch
-          key={color.colorString + index}
-          color={color.hex}
-          colorSpace={color.type}
-          colorSpaceString={color.colorString}
-          isLight={color.tone === "light"}
-        />
-      ))}
+      {Object.values(state.swatches)
+        .sort((a, b) => a.ordering - b.ordering)
+        .map((color, index) => {
+          return (
+            color.hex && (
+              <Swatch
+                key={color.colorString + index}
+                color={color.hex}
+                colorSpace={color.type}
+                colorSpaceString={color.colorString}
+                isLight={color.tone === "light"}
+                locked={color.locked}
+              />
+            )
+          );
+        })}
     </div>
   );
 };
