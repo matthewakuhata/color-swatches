@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./Swatch.css";
+import { useSwatches } from "../contexts/SwatchesContext";
 
 interface SwatchProps {
   color: string;
   colorSpace: string;
   colorSpaceString: string;
   isLight: boolean;
+  locked: boolean;
 }
 
 const Swatch: React.FC<SwatchProps> = ({
@@ -13,25 +15,18 @@ const Swatch: React.FC<SwatchProps> = ({
   colorSpace,
   colorSpaceString,
   isLight,
+  locked,
 }) => {
+  const { dispatch } = useSwatches();
+
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(color);
     //show toast copied to clipboard
   };
 
   const handleToggleLockColor = () => {
-    setIsLocked((prev) => {
-      if (prev) {
-        // add a color to be fetched
-      } else {
-        // remove a color to be fetched
-      }
-
-      return !prev;
-    });
+    dispatch({ type: locked ? "unlock" : "lock", id: color });
   };
-
-  const [isLocked, setIsLocked] = useState(false);
 
   return (
     <div
@@ -39,7 +34,7 @@ const Swatch: React.FC<SwatchProps> = ({
       className={`swatch ${isLight && "swatch--dark"}`}
     >
       <button onClick={handleToggleLockColor}>
-        {isLocked ? "Unlock" : "Lock"}
+        {locked ? "Unlock" : "Lock"}
       </button>
       <button className={"swatch__hex"} onClick={handleCopyToClipboard}>
         {color.toUpperCase()}
